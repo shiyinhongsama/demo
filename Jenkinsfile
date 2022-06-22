@@ -38,6 +38,7 @@ ls -la'''
     }
 
     stage('Deliver') {
+      agent any
       steps {
         sh '''word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 

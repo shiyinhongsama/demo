@@ -17,5 +17,11 @@ ls -la'''
       }
     }
 
+    stage('build images') {
+      steps {
+        sh 'docker ps'
+      }
+    }
+
   }
 }

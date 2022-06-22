@@ -1,6 +1,6 @@
 pipeline {
   agent{
-    any{}
+    none{}
   }
   stages {
     stage('Build') {
@@ -14,26 +14,6 @@ pipeline {
       }
       steps {
         sh 'mvn -B -DskipTests clean package'
-      }
-    }
-
-    stage('UnitTest') {
-    agent {
-        docker {
-          image 'maven:3.8.4-openjdk-8'
-          args '''-v /root/.m2:/root/.m2
-    -v  "/var/run/docker.sock:/var/run/docker.sock"'''
-        }
-
-      }
-      post {
-        always {
-          junit 'target/surefire-reports/*.xml'
-        }
-
-      }
-      steps {
-        sh 'mvn test'
       }
     }
 

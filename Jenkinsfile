@@ -16,20 +16,5 @@ ls -la'''
       }
     }
 
-    stage('Deliver') {
-      steps {
-        sh '''docker build -t demo:0.0.1 .
-
-word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
-
-if [ -z "$word" ] ;then
-  echo "stopping old container" \\
-  && sudo docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
-fi
-
-sudo docker run -itd --name demo -p 8002:8080 demo:0.0.1'''
-      }
-    }
-
   }
 }

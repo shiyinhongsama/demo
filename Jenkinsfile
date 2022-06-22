@@ -12,6 +12,7 @@ pipeline {
       }
       steps {
         sh 'mvn -B -DskipTests clean package'
+        sh 'docker build -t demo:0.0.1 .'
       }
     }
 
@@ -37,11 +38,7 @@ pipeline {
 
     stage('Deliver') {
       steps {
-        sh '''echo $PWD
-
-docker build -t demo:0.0.1 .
-
-word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
+        sh '''word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 
 if [ -z "$word" ] ;then
   echo "stopping old container" \\

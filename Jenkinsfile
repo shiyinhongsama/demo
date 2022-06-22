@@ -3,7 +3,7 @@ pipeline {
     docker {
       image 'maven:3.6.3-openjdk-16-slim'
       args '''-v /root/.m2:/root/.m2
--v "/var/run/docker.sock:/var/run/docker.sock"'''
+-v  /var/run/docker.sock:/var/run/docker.sock'''
     }
 
   }
@@ -27,9 +27,6 @@ pipeline {
     }
 
     stage('Deliver') {
-      environment {
-        label = '0.0.1'
-      }
       steps {
         sh '''docker build -t demo:0.0.1 .
 

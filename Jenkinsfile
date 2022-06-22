@@ -1,4 +1,3 @@
-
 pipeline {
   agent {
     docker {
@@ -13,20 +12,33 @@ pipeline {
         sh 'mvn -B -DskipTests clean package'
       }
     }
+
     stage('Test') {
-        steps {
-            sh 'mvn test'
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
         }
-        post {
-            always {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
+
+      }
+      steps {
+        sh 'mvn test'
+      }
     }
+
     stage('Deliver') {
-                steps {
-                    sh 'docker-compose down || docker-compose build && docker-compose up -d'
-                }
-            }
+      steps {
+        sh '''docker build -t demo:0.0.1 .
+
+word= `docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
+
+if [ -z "$word" ] ;then
+  echo "stopping old container" \\
+  && docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
+fi
+
+docker run -itd --name demo -p 8002:8080 demo:0.0.1'''
+      }
+    }
+
   }
 }

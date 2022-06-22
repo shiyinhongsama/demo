@@ -13,7 +13,7 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    stage('UnitTest') {
       post {
         always {
           junit 'target/surefire-reports/*.xml'

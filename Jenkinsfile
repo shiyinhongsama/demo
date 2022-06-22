@@ -27,12 +27,6 @@ pipeline {
     }
 
     stage('Deliver') {
-      agent {
-        dockerfile {
-          filename 'Dockerfile'
-        }
-
-      }
       environment {
         label = '0.0.1'
       }

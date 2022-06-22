@@ -27,6 +27,15 @@ pipeline {
     }
 
     stage('Deliver') {
+      agent {
+        dockerfile {
+          filename 'Dockerfile'
+        }
+
+      }
+      environment {
+        label = '0.0.1'
+      }
       steps {
         sh '''docker build -t demo:0.0.1 .
 

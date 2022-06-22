@@ -11,8 +11,9 @@ pipeline {
 
       }
       steps {
-        sh 'mvn -B -DskipTests clean package'
-        sh 'docker build -t demo:0.0.1 .'
+        sh '''mvn -B -DskipTests clean package
+echo $PWD
+ls -la'''
       }
     }
 

@@ -18,12 +18,6 @@ ls -la'''
     }
 
     stage('build images') {
-      agent {
-        node {
-          label 'build_images'
-        }
-
-      }
       steps {
         sh 'docker ps'
       }

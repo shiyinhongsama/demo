@@ -2,7 +2,8 @@ pipeline {
   agent {
     docker {
       image 'maven:3.6.3-openjdk-16-slim'
-      args '-v /root/.m2:/root/.m2'
+      args '''-v /root/.m2:/root/.m2
+-v "/var/run/docker.sock:/var/run/docker.sock"'''
     }
 
   }
@@ -27,7 +28,7 @@ pipeline {
 
     stage('Deliver') {
       steps {
-        sh '''sudo docker build -t demo:0.0.1 .
+        sh '''docker build -t demo:0.0.1 .
 
 word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 

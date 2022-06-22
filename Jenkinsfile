@@ -2,7 +2,8 @@ pipeline {
   agent {
     docker {
       image 'maven:3.8.4-openjdk-8'
-      args '-v /root/.m2:/root/.m2'
+      args '''-v /root/.m2:/root/.m2
+-v  "/var/run/docker.sock:/var/run/docker.sock"'''
     }
 
   }
@@ -26,6 +27,13 @@ pipeline {
     }
 
     stage('Deliver') {
+      agent {
+        docker {
+          image 'maven:3.8.4-openjdk-8'
+          args '-v /root/.m2:/root/.m2'
+        }
+
+      }
       steps {
         sh '''docker build -t demo:0.0.1 .
 

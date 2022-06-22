@@ -27,7 +27,6 @@ pipeline {
     }
 
     stage('Deliver') {
-      agent any
       steps {
         sh '''docker build -t demo:0.0.1 .
 

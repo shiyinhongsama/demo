@@ -1,10 +1,8 @@
 pipeline {
-  agent{
-    any{}
-  }
+  agent any
   stages {
     stage('Build') {
-    agent {
+      agent {
         docker {
           image 'maven:3.8.4-openjdk-8'
           args '''-v /root/.m2:/root/.m2
@@ -18,7 +16,7 @@ pipeline {
     }
 
     stage('UnitTest') {
-    agent {
+      agent {
         docker {
           image 'maven:3.8.4-openjdk-8'
           args '''-v /root/.m2:/root/.m2
@@ -39,7 +37,9 @@ pipeline {
 
     stage('Deliver') {
       steps {
-        sh '''docker build -t demo:0.0.1 .
+        sh '''echo $PWD
+
+docker build -t demo:0.0.1 .
 
 word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 

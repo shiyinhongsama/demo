@@ -1,5 +1,10 @@
 pipeline {
-  agent none
+  agent {
+    node {
+      label 'worker'
+    }
+
+  }
   stages {
     stage('build Jar') {
       agent {
@@ -17,14 +22,12 @@ ls -la'''
     }
 
     stage('build images') {
-      agent any
       steps {
         sh 'docker build -t demo:0.0.1 .'
       }
     }
 
     stage('deploy container') {
-      agent any
       steps {
         sh '''word= `sudo docker ps -a | grep demo:0.0.1 | awk \\\\\\\'{print $1}\\\\\\\'`
 if [ -z "$word" ] ;then

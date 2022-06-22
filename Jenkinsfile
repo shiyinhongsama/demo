@@ -18,6 +18,7 @@ ls -la'''
     }
 
     stage('build images') {
+      agent any
       steps {
         sh 'docker ps'
       }

@@ -29,7 +29,7 @@ ls -la'''
       agent any
       steps {
         unstash 'jar'
-        sh '''word= `docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
+        sh '''word=`docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 if [ -z "$word" ] ;then
   echo "stopping old container"
   docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')

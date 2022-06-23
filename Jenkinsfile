@@ -29,12 +29,12 @@ ls -la'''
       agent any
       steps {
         unstash 'jar'
-        sh '''word= `sudo docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
+        sh '''word= `docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
 if [ -z "$word" ] ;then
   echo "stopping old container"
-  sudo docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
+  docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
 fi
-sudo docker run -itd --name demo -p 8002:8080 demo:0.0.1'''
+docker run -itd --name demo -p 8002:8080 demo:0.0.1'''
       }
     }
 

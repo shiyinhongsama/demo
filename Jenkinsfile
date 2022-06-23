@@ -3,8 +3,17 @@ pipeline {
   parameters {
           booleanParam(name: 'EXEC_PERFORMANCE_TEST', defaultValue: false, description: '是否执行性能测试?')
           string(name: 'SCRIPT_NAME', defaultValue: 'SimpleTestPlan.jmx', description: '测试脚本名称')
+          booleanParam(name: 'SEND_MAIL', defaultValue: false, description: '性能测试结果是否发送邮件')
      }
+  options{
+    skipDefaultCheckout true
+  }
   stages {
+    stege('clone code'){
+        steps{
+            git credentialsId: "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", url: "https://github.com/shiyinhongsama/demo.git"
+        }
+    }
     stage('build Jar') {
       agent {
         docker {

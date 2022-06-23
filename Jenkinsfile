@@ -29,7 +29,9 @@ ls -la'''
       agent any
       steps {
         sh '''word=`docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
-if [ -z "$word" ] ;then
+
+
+if [ -n "$word" ] ;then
   echo "stopping old container"
   docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
 fi

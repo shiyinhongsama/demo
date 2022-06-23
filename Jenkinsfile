@@ -1,5 +1,9 @@
 pipeline {
   agent none
+  parameters {
+          booleanParam(name: 'EXEC_PERFORMANCE_TEST', defaultValue: false, description: '是否执行性能测试?')
+          string(name: 'SCRIPT_NAME', defaultValue: 'SimpleTestPlan.jmx', description: '测试脚本名称')
+     }
   stages {
     stage('build Jar') {
       agent {

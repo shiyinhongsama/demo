@@ -6,10 +6,10 @@ pipeline {
           booleanParam(name: 'SEND_MAIL', defaultValue: false, description: '性能测试结果是否发送邮件')
      }
   options{
-    agent any
     skipDefaultCheckout true
   }
   stages {
+    agent any
     stege('clone code'){
         steps{
             git credentialsId: "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", url: "https://github.com/shiyinhongsama/demo.git"

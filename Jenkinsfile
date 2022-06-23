@@ -12,7 +12,7 @@ pipeline {
   stages {
     stege('clone code'){
         steps{
-            git credentialsId: "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", url: "https://github.com/shiyinhongsama/demo.git"
+            git credentialsId: "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", url: "https://github.com/shiyinhongsama/demo.git"
         }
     }
     stage('build Jar') {

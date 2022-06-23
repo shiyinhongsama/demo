@@ -6,6 +6,7 @@ pipeline {
           booleanParam(name: 'SEND_MAIL', defaultValue: false, description: '性能测试结果是否发送邮件')
      }
   options{
+    agent any
     skipDefaultCheckout true
   }
   stages {

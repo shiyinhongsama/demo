@@ -9,10 +9,10 @@ pipeline {
     skipDefaultCheckout true
   }
   stages {
-    agent any
-    stege('clone code'){
+    stage('clone code'){
+      agent any
         steps{
-            git credentialsId: "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", url: "https://github.com/shiyinhongsama/demo.git"
+            git credentialsId: "33bde891-d360-457d-b165-91dbb45ad22e", url: "https://gitee.com/shiyinhong/demo.git"
         }
     }
     stage('build Jar') {
@@ -42,12 +42,10 @@ ls -la'''
     stage('deploy container') {
       agent any
       steps {
-        sh '''word=`docker ps -a | grep demo:0.0.1 | awk \'{print $1}\'`
-
-
+        sh '''word=`docker ps -a | grep demo | awk \'{print $1}\'`
 if [ -n "$word" ] ;then
   echo "stopping old container"
-  docker rm -f $(docker ps -a | grep demo:0.0.1 | awk \'{print $1}\')
+  docker rm -f $(docker ps -a | grep demo | awk \'{print $1}\')
 fi
 docker run -itd --name demo -p 8002:8080 demo:0.0.1'''
       }
